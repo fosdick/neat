@@ -13,33 +13,46 @@
 /// @access private
 
 @function _neat-column-width-no-outside-gutters($grid, $cols) {
-    @if length($cols) > 1 {
-      $o_cols: $cols;
-      $cols: nth($cols, 1);
-      $_grid-column: nth($o_cols, 3);
-    }
-    $_column-ratio: _neat-column-ratio($grid, $cols);
-    $_grid-columns: _retrieve-neat-setting($grid, columns);
-    $_grid-gutter: _retrieve-neat-setting($grid, gutter);
-    $mc: $_grid-columns - 1;
-    @return unquote("#{percentage($cols / $_grid-columns)} - #{(((($_grid-gutter * $mc/$_grid-columns) - $_grid-gutter) * $cols) + $_grid-gutter)}");
+  @if length($cols) > 1 {
+    $o_cols: $cols;
+    $cols: nth($cols, 1);
+    $_grid-column: nth($o_cols, 3);
+  }
+
+  $_column-ratio: _neat-column-ratio($grid, $cols);
+  $_grid-columns: _retrieve-neat-setting($grid, columns);
+  $_grid-gutter: _retrieve-neat-setting($grid, gutter);
+  $mc: $_grid-columns - 1;
+  $i: $cols;
+  @return unquote("#{percentage($i / $_grid-columns)} - #{(((($_grid-gutter * $mc/$_grid-columns) - $_grid-gutter) * $i) + $_grid-gutter)}");
+
 }
 @function _neat-column-margin($grid, $cols) {
   @if $cols == 0 {
       $_grid-gutter: _retrieve-neat-setting($grid, gutter);
       @return unquote("#{$_grid-gutter}");
   } @else {
+
     @if $neat-no-outside-gutters {
       $_grid-columns: _retrieve-neat-setting($grid, columns);
       $_grid-gutter: _retrieve-neat-setting($grid, gutter);
+
       @if length($cols) > 1 {
         $o_cols: $cols;
         $cols: nth($cols, 1);
         $_grid-column: nth($o_cols, 3);
       }
+
       $mc: $_grid-columns - $cols;
+      $i: $cols;
+      $diff-gutter: "";
+      $diff-gutter: $_grid-gutter * 0;
+      @if ($i == 1) {
+        $diff-gutter: $_grid-gutter * 0;
+      }
+
       @if $cols {
-        @return unquote("#{percentage($cols / $_grid-columns)} - #{(($_grid-gutter * $mc/$_grid-columns) - $_grid-gutter)}");
+        @return unquote("#{percentage($i / $_grid-columns)} - #{(($_grid-gutter * $mc/$_grid-columns) - $_grid-gutter)} + #{$diff-gutter}");
 
       } @else {
         @return unquote("#{$_grid-gutter}");
