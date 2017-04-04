@@ -3,6 +3,33 @@
 // http://neat.bourbon.io
 // Copyright 2012 thoughtbot, inc.
 // MIT License
+// visualize grid
+$visualize_grid: true;
+$neat-no-outside-gutters: true;
+$gutter_width: 2.5rem;
+$gutter_width_wide: 2.5rem;
+
+$neat-grid: (
+  columns: 4,
+  gutter: $gutter_width,
+);
+$tablet: (
+  columns: 8,
+  gutter: $gutter_width,
+  media: 600px,
+);
+$desktop: (
+  columns: 12,
+  gutter: $gutter_width,
+  media: 840px,
+);
+$desktop-wide: (
+  columns: 12,
+  gutter: $gutter_width_wide,
+  media: 1440px,
+);
+
+
 
 @import "neat/settings/settings";
 
